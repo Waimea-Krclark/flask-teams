@@ -27,7 +27,13 @@ init_datetime(app)  # Handle UTC dates in timestamps
 #-----------------------------------------------------------
 @app.get("/")
 def index():
-    return render_template("pages/home.jinja")
+    with connect_db() as client:
+        # Get all the things from the DB
+        sql = "SELECT * FROM teams ORDER BY name ASC"
+        params = []
+        result = client.execute(sql, params)
+        teams = result.rows
+    return render_template("pages/home.jinja" , teams=teams)
 
 
 #-----------------------------------------------------------
@@ -35,6 +41,7 @@ def index():
 #-----------------------------------------------------------
 @app.get("/about/")
 def about():
+    
     return render_template("pages/about.jinja")
 
 
