@@ -20,13 +20,9 @@
     <h1>Teams and players</h1>
     <p>Teams are an important thing that should exist. Teams need players though as well so they are also important</p>
 
-    <h3>teams:</h3>
-
-
-    
     {% for team in teams %}
         <article>
-            <a href="/thing/{{ team.code }}">
+            <a href="/team/{{ team.code }}">
                 {{ team.name }}
             </a>
         </article>
@@ -34,7 +30,50 @@
         <p>None!</p>
     {% endfor %}
 
-    
+    <article>
+
+        <h3>New Team</h3>
+
+        <form action="/add" method="POST">
+            <fieldset role="group">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Name of new Team"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="code"
+                    placeholder="3 character code e.g 'ABC'"
+                    required
+                >
+            </fieldset>
+            
+
+            <input
+                type="text"
+                name="description"
+                placeholder="Team Description"
+                required
+            >
+
+            <input
+                type="text"
+                name="website"
+                placeholder="Team Website"
+                required
+            >
+
+            <input
+            type="submit"
+            value="Add New Team"
+            />
+
+        </form>
+
+    </article>
 
 {% endblock %}
 

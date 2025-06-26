@@ -1,0 +1,38 @@
+{#=====================================================
+  Thing page
+  - Shows details of a single thing
+  - Has a delete link to remove it
+=====================================================#}
+
+{% extends 'pages/base.jinja' %}
+
+
+{% block title %}
+
+    Flask Demo - Single Thing
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div id="title">
+        <p>{{ player.team }}</p>
+        <p>|</p>
+        <p><strong>{{ player.name }}</strong></p>
+    </div>
+    
+
+
+    <article>
+        <p>Notes: <strong>{{ player.notes }}</strong></p>
+
+
+    </article>
+
+    <a role="button" href="/delete/{{ player.id }}" onclick="return confirm('Really delete?');">Delete Player</a>
+
+    <a role="button" href="/">Back to Teams</a>
+
+{% endblock %}
+

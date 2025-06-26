@@ -33,3 +33,25 @@
 #messages .message.success { color: var(--pico-color-green-500); }
 #messages .message.error   { color: var(--pico-color-red-500); }
 
+/* CUSTOM --------------------------------------------------- */
+
+div#title{
+    display: flex;
+}
+
+div#title p{
+    font-size: 1.5rem;
+    padding-right: 1rem;
+    color:var(--pico-primary) ;
+}
+
+div#title p strong{
+    font-size: 1.5rem;
+    padding-right: 1rem;
+    color:var(--pico-h1-color) ;
+}
+
+article#player{
+    display: flex;
+    justify-content: space-between;
+}

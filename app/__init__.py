@@ -48,35 +48,47 @@ def about():
 #-----------------------------------------------------------
 # Things page route - Show all the things, and new thing form
 #-----------------------------------------------------------
-@app.get("/things/")
-def show_all_things():
-    with connect_db() as client:
-        # Get all the things from the DB
-        sql = "SELECT id, name FROM things ORDER BY name ASC"
-        params = []
-        result = client.execute(sql, params)
-        things = result.rows
-
-        # And show them on the page
-        return render_template("pages/things.jinja", things=things)
-
-
-#-----------------------------------------------------------
-# Thing page route - Show details of a single thing
-#-----------------------------------------------------------
-@app.get("/thing/<int:id>")
-def show_one_thing(id):
+@app.get("/player/<int:id>")
+def show_player(id):
     with connect_db() as client:
         # Get the thing details from the DB
-        sql = "SELECT id, name, price FROM things WHERE id=?"
+        sql = "SELECT * FROM players WHERE id=?"
         params = [id]
         result = client.execute(sql, params)
 
         # Did we get a result?
         if result.rows:
             # yes, so show it on the page
-            thing = result.rows[0]
-            return render_template("pages/thing.jinja", thing=thing)
+            player = result.rows[0]
+            return render_template("pages/player.jinja", player=player)
+
+        else:
+            # No, so show error
+            return not_found_error()
+
+
+#-----------------------------------------------------------
+# Thing page route - Show details of a single thing
+#-----------------------------------------------------------
+@app.get("/team/<string:code>")
+def show_team(code):
+    with connect_db() as client:
+        # Get the thing details from the DB
+        sql = "SELECT * FROM teams WHERE code=?"
+        params = [code]
+        result = client.execute(sql, params)
+
+        # Did we get a result?
+        if result.rows:
+            # yes, so show it on the page
+            team = result.rows[0]
+
+            sql = "SELECT * FROM players WHERE team=?"
+            params = [code]
+            result = client.execute(sql, params)
+            players = result.rows
+
+            return render_template("pages/team.jinja", team=team, players= players)
 
         else:
             # No, so show error
